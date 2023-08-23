@@ -16,8 +16,9 @@ app.listen(
     });
 
     app.post('/hello/:id', (req,res) => {
+        const{id} = req.params;
         const{message} = req.body;
         res.send({
-            message: `Message '${message}' added`
+            message: `Message '${message}' added with id: ${id}`
         })
     });
