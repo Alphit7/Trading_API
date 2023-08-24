@@ -2,23 +2,15 @@ const express = require('express');
 const app = express();
 const PORT = 8080;
 
-app.use( express.json() )
+const userController = require('./controllers/userController');
+// const profileController = require('./controllers/profileController');
 
-app.listen(
-    PORT,
-    () => console.log(`it's alive on http://localhost:${PORT}`)
-    )
+app.use(express.json());
 
-    app.get('/hello', (req,res) => {
-        res.status(200).send({
-            message: "Hello"
-        })
-    });
+app.get('/login', userController.loginUser);
+app.post('/signup', userController.createUser);
 
-    app.post('/hello/:id', (req,res) => {
-        const{id} = req.params;
-        const{message} = req.body;
-        res.send({
-            message: `Message '${message}' added with id: ${id}`
-        })
-    });
+
+// Additional routes for profiles if needed
+
+app.listen(PORT, () => console.log(`Server is alive on http://localhost:${PORT}`));
