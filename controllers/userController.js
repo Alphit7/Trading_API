@@ -1,6 +1,5 @@
 const userModel = require('../models/user');
 const profileModel = require('../models/profile');
-const session = require('express-session');
 const hash = require('../tools/hash');
 const bcrypt = require('bcrypt');
 

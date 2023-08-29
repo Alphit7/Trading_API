@@ -24,6 +24,7 @@ model Profile {
   first_name String
   last_name  String
   address    String
+  balance    Int    @default(0)
 
   user  User    @relation(fields: [user_id], references: [id])
   Trade Trade[]
