@@ -4,13 +4,15 @@ const PORT = 8080;
 
 const userController = require('./controllers/userController');
 const wireController = require('./controllers/wireController');
-// const profileController = require('./controllers/profileController');
+const profileController = require('./controllers/profileController');
 
 app.use(express.json());
 
 app.get('/login', userController.loginUser);
 app.post('/signup', userController.createUser);
 app.post('/wire', wireController.makeWire);
+app.get('/profile', profileController.getProfile);
+app.patch('/update', profileController.updateProfile);
 
 
 // Additional routes for profiles if needed
