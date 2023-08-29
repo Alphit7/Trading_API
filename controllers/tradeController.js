@@ -10,6 +10,17 @@ async function fetchTrades(req,res){
     }
 }
 
+async function fetchTrade(req,res){
+    try {
+        const id = parseInt(req.params.id)
+        const trade = await tradeModel.fetchTrade(id);
+        res.json(trade);
+    } catch (error){
+        throw error;
+    }
+}
+
 module.exports = {
-    fetchTrades
+    fetchTrades,
+    fetchTrade
 }

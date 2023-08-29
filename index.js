@@ -15,6 +15,7 @@ app.post('/wire', wireController.makeWire);
 app.get('/profile', profileController.getProfile);
 app.patch('/update', profileController.updateProfile);
 app.get('/trades/index', tradeController.fetchTrades);
+app.get('/trades/:id', tradeController.fetchTrade);
 
 
 // Additional routes for profiles if needed

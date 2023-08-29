@@ -11,6 +11,19 @@ async function fetchTrades(){
     }
 }
 
+async function fetchTrade(id){
+    try {
+        const trade = await prisma.trade.findUnique({where: {id}})
+        if (trade){
+        return trade;
+        }
+        else{return "Trade not found"}
+    } catch (error){
+        throw error;
+    }
+}
+
 module.exports = {
-    fetchTrades
+    fetchTrades,
+    fetchTrade
 }
