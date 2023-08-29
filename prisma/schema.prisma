@@ -37,7 +37,7 @@ model Trade {
   symbol         String
   quantity       Int
   open_price     Int
-  close_price    Int
+  close_price    Int?
   open_datetime  DateTime  @default(now())
   close_datetime DateTime?
   open           Boolean

@@ -5,6 +5,7 @@ const PORT = 8080;
 const userController = require('./controllers/userController');
 const wireController = require('./controllers/wireController');
 const profileController = require('./controllers/profileController');
+const tradeController = require ('./controllers/tradeController');
 
 app.use(express.json());
 
@@ -13,6 +14,7 @@ app.post('/signup', userController.createUser);
 app.post('/wire', wireController.makeWire);
 app.get('/profile', profileController.getProfile);
 app.patch('/update', profileController.updateProfile);
+app.get('/trades/index', tradeController.fetchTrades);
 
 
 // Additional routes for profiles if needed
