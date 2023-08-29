@@ -47,9 +47,16 @@ async function fetchClosedTrades(){
     }
 }
 
+async function openTrade(tradeData){
+    const trade = await prisma.trade.create({data: tradeData})
+    return trade;
+}
+
+
 module.exports = {
     fetchTrades,
     fetchTrade,
     fetchOpenTrades,
-    fetchClosedTrades
+    fetchClosedTrades,
+    openTrade
 }

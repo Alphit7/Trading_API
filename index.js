@@ -9,17 +9,15 @@ const tradeController = require ('./controllers/tradeController');
 
 app.use(express.json());
 
-app.get('/login', userController.loginUser);
-app.post('/signup', userController.createUser);
-app.post('/wire', wireController.makeWire);
-app.get('/profile', profileController.getProfile);
-app.patch('/update', profileController.updateProfile);
-app.get('/trades/index', tradeController.fetchTrades);
-app.get('/trades/:id', tradeController.fetchTrade);
-app.get('/trades/index/open', tradeController.fetchOpenTrades);
-app.get('/trades/index/closed', tradeController.fetchClosedTrades);
-
-
-// Additional routes for profiles if needed
+app.get('/api/login', userController.loginUser);
+app.post('/api/signup', userController.createUser);
+app.post('/api/wire', wireController.makeWire);
+app.get('/api/profile', profileController.getProfile);
+app.patch('/api/update', profileController.updateProfile);
+app.get('/api/trades/index', tradeController.fetchTrades);
+app.get('/api/trades/:id', tradeController.fetchTrade);
+app.get('/api/trades/index/open', tradeController.fetchOpenTrades);
+app.get('/api/trades/index/closed', tradeController.fetchClosedTrades);
+app.post('/api/openTrade', tradeController.openTrade);
 
 app.listen(PORT, () => console.log(`Server is alive on http://localhost:${PORT}`));

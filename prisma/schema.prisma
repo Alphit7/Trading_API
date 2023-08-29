@@ -40,7 +40,7 @@ model Trade {
   close_price    Int?
   open_datetime  DateTime  @default(now())
   close_datetime DateTime?
-  open           Boolean
+  open           Boolean   @default(true)
 
   profile Profile @relation(fields: [profile_id], references: [id])
 }
