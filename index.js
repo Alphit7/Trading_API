@@ -16,6 +16,8 @@ app.get('/profile', profileController.getProfile);
 app.patch('/update', profileController.updateProfile);
 app.get('/trades/index', tradeController.fetchTrades);
 app.get('/trades/:id', tradeController.fetchTrade);
+app.get('/trades/index/open', tradeController.fetchOpenTrades);
+app.get('/trades/index/closed', tradeController.fetchClosedTrades);
 
 
 // Additional routes for profiles if needed

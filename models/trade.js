@@ -23,7 +23,33 @@ async function fetchTrade(id){
     }
 }
 
+async function fetchOpenTrades(){
+    try {
+        const trades = await prisma.trade.findMany({where: {open: true}})
+        if (trades){
+        return trades;
+        }
+        else{return "Trade not found"}
+    } catch (error){
+        throw error;
+    }
+}
+
+async function fetchClosedTrades(){
+    try {
+        const trades = await prisma.trade.findMany({where: {open: false}})
+        if (trades){
+        return trades;
+        }
+        else{return "Trade not found"}
+    } catch (error){
+        throw error;
+    }
+}
+
 module.exports = {
     fetchTrades,
-    fetchTrade
+    fetchTrade,
+    fetchOpenTrades,
+    fetchClosedTrades
 }

@@ -20,7 +20,29 @@ async function fetchTrade(req,res){
     }
 }
 
+async function fetchOpenTrades(req,res){
+    try {
+    const trades =await tradeModel.fetchOpenTrades()
+        res.json(trades);
+    }
+    catch (error){
+        throw error;
+    }
+}
+
+async function fetchClosedTrades(req,res){
+    try {
+    const trades =await tradeModel.fetchClosedTrades()
+        res.json(trades);
+    }
+    catch (error){
+        throw error;
+    }
+}
+
 module.exports = {
     fetchTrades,
-    fetchTrade
+    fetchTrade,
+    fetchOpenTrades,
+    fetchClosedTrades
 }
