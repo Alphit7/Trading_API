@@ -1,4 +1,7 @@
 const tradeModel = require('../models/trade');
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient()
+
 
 async function fetchTrades(req,res){
     try {
@@ -48,8 +51,14 @@ async function openTrade(req,res){
             quantity: req.body.quantity,
             open_price: req.body.open_price,
         }
+        const profile = await prisma.profile.findUnique({where: {id: tradeData.profile_id}})
+        if (profile.balance >= tradeData.open_price * tradeData.quantity){
+
         const trade = await tradeModel.openTrade(tradeData)
         res.json(`you just bought ${tradeData.quantity} share(s) of ${tradeData.symbol}`)
+        } else{
+            res.json("You don't have enough fonds in your balance");
+        }
     } catch (error){
         throw error;
     }
