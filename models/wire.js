@@ -13,9 +13,13 @@ async function makeWire(wireData) {
             throw new Error(`Profile with id ${wireData.profile_id} not found.`);
         }
 
-        const newBalance = profile.balance + wireData.amount;
-
-        const updateProfile = await prisma.profile.update({
+        let newBalance;
+        if(wireData.withdrawal === false){
+        newBalance = profile.balance + wireData.amount;
+        }else{
+            newBalance = profile.balance - wireData.amount;
+        }
+        const updatedProfile = await prisma.profile.update({
             where: { id: wireData.profile_id },
             data: { balance: newBalance }
         });
@@ -24,7 +28,7 @@ async function makeWire(wireData) {
     } catch (error) {
         console.error('An error occurred:', error.message);
     } finally {
-        await prisma.$disconnect(); // Disconnect from Prisma client
+        await prisma.$disconnect(); 
     }
 }
 

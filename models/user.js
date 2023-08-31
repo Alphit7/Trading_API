@@ -1,5 +1,6 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
+const bcrypt = require('bcrypt');
 
 async function createUserWithProfile(userData, profileData) {
   try {
@@ -20,22 +21,6 @@ async function createUserWithProfile(userData, profileData) {
   }
 }
 
-async function authenticateUser(email, password) {
-  try {
-    const user = await prisma.user.findUnique({
-      where: { email },
-    });
-
-    if (user && user.password === password) {
-      return user;
-    } else {
-      return null;
-    }
-  } catch (error) {
-    throw error;
-  }
-}
-
 async function getUserByEmail(email) {
   try {
     const user = await prisma.user.findUnique({
@@ -49,8 +34,29 @@ async function getUserByEmail(email) {
   }
 }
 
+
+async function loginUser(email, password) {
+  try {
+    const user = await getUserByEmail(email);
+
+    if (user) {
+      const passwordMatches = await bcrypt.compare(password, user.password);
+
+      if (passwordMatches) {
+        return { message: 'Login successful' };
+      } else {
+        throw error;
+      }
+    } else {
+      throw error;
+    }
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
+  loginUser,
   getUserByEmail,
-  authenticateUser,
   createUserWithProfile,
 };

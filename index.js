@@ -19,5 +19,6 @@ app.get('/api/trades/:id', tradeController.fetchTrade);
 app.get('/api/trades/index/open', tradeController.fetchOpenTrades);
 app.get('/api/trades/index/closed', tradeController.fetchClosedTrades);
 app.post('/api/openTrade', tradeController.openTrade);
+app.post('/api/closeTrade/:id', tradeController.closeTrade);
 
 app.listen(PORT, () => console.log(`Server is alive on http://localhost:${PORT}`));

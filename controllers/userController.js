@@ -1,7 +1,7 @@
 const userModel = require('../models/user');
 const profileModel = require('../models/profile');
 const hash = require('../tools/hash');
-const bcrypt = require('bcrypt');
+
 
 async function createUser(req, res) {
   try {
@@ -29,26 +29,18 @@ async function createUser(req, res) {
 async function loginUser(req, res) {
   try {
     const { email, password } = req.body;
-
-    const user = await userModel.getUserByEmail(email);
-
-    if (user) {
-      
-      const passwordMatches = await bcrypt.compare(password, user.password);
-
-      if (passwordMatches) {
-        res.json({ message: 'Login successful' });
-      } else {
-        res.status(401).json({ error: 'Authentication failed' });
-      }
-    } else {
-      res.status(401).json({ error: 'User not found' });
-    }
+    const result = await userModel.loginUser(email, password);
+    res.json(result);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'An error occurred' });
   }
 }
+
+module.exports = {
+  loginUser
+};
+
 
 
 

@@ -64,8 +64,27 @@ async function openTrade(req,res){
     }
 }
 
+async function closeTrade(req,res){
+    try{
+        const tradeData = {
+            id: parseInt(req.params.id),
+            profile_id: req.body.profile_id,
+            symbol: req.body.symbol,
+            quantity: req.body.quantity,
+            close_price: req.body.close_price,
+            close_datetime: new Date(),
+            open: false
+        }
+        const trade = await tradeModel.closeTrade(tradeData)
+        res.json(`you just sold ${tradeData.quantity} share(s) of ${tradeData.symbol}`)
+    } catch (error){
+        throw error;
+    }
+}
+
 module.exports = {
     fetchTrades,
+    closeTrade,
     fetchTrade,
     fetchOpenTrades,
     openTrade,
