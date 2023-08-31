@@ -82,7 +82,30 @@ async function closeTrade(req,res){
     }
 }
 
+async function closedPNL(req,res){
+    try {
+        const id = req.body.id;
+        const total = await tradeModel.closedPNL(id);
+        res.json({message: `The PNL of your closed trades is ${total}`})
+    } catch(error){
+        throw error;
+    }
+}
+
+async function openPNL(req,res){
+    try {
+        const id = req.body.id;
+        const data = req.body.data;
+        const total = await tradeModel.openPNL(id,data);
+        res.json({message: `The PNL of your open trades is ${total}`})
+    } catch(error){
+        throw error;
+    }
+}
+
 module.exports = {
+    openPNL,
+    closedPNL,
     fetchTrades,
     closeTrade,
     fetchTrade,

@@ -27,8 +27,18 @@ async function updateProfile(req,res){
         throw error;
     }
 }
+async function getBalance(req,res){
+    try{
+        const id = req.body.id;
+        const balance =await profileModel.getBalance(id);
+        res.json(`Your balance is: ${balance}€`)
+    } catch (error){
+        throw error;
+    }
+}
 
 module.exports = {
+    getBalance,
     updateProfile,
     getProfile
 };

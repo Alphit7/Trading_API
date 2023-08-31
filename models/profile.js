@@ -26,8 +26,22 @@ async function updateProfile(profileData){
     }
 }
 
+async function getBalance(id){
+    try{
+        const profile = await prisma.profile.findUnique(
+            {
+                where: {id: id}
+            }
+        )
+        return profile.balance
+    } catch(error){
+        throw error;
+    }
+}
+
 
 module.exports = {
+    getBalance,
     getProfile,
     updateProfile
 };

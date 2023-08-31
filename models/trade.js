@@ -69,7 +69,7 @@ async function closeTrade(tradeData) {
         const trade = await prisma.trade.update({
             where: { id: tradeData.id },
             data: {
-                close_price: tradeData.closePrice,
+                close_price: tradeData.close_price,
                 close_datetime: tradeData.close_datetime,
                 open: tradeData.open,
             },
@@ -90,8 +90,36 @@ async function closeTrade(tradeData) {
     }
 }
 
+async function closedPNL(id){
+    try{
+    const trades = await prisma.trade.findMany({where: {profile_id: id, open: false}})
+    let total = 0;
+    trades.forEach(element => {total += element.close_price - element.open_price;
+    });
+    return total;
+}catch (error){
+    throw error;
+}
+}
+
+async function openPNL(id, data){
+    try{
+        const trades = await prisma.trade.findMany({where: {profile_id: id, open: true}})
+        let total = 0;
+        
+        trades.forEach(element => {
+            let stock = data.find(item => item.symbol === element.symbol);
+            total += stock.currentPrice - element.open_price;
+        });
+        return total;
+    } catch (error){
+        throw error;
+    }
+}
 
 module.exports = {
+    openPNL,
+    closedPNL,
     closeTrade,
     fetchTrades,
     fetchTrade,
