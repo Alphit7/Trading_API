@@ -9,3 +9,47 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id       Int      @id @default(autoincrement())
+  email    String   @unique
+  name     String
+  password String
+  Profile  Profile?
+}
+
+model Profile {
+  id         Int    @id @default(autoincrement())
+  user_id    Int    @unique
+  first_name String
+  last_name  String
+  address    String
+  balance    Int    @default(0)
+
+  user  User    @relation(fields: [user_id], references: [id])
+  Trade Trade[]
+  Wire  Wire[]
+}
+
+model Trade {
+  id             Int       @id @default(autoincrement())
+  profile_id     Int
+  symbol         String
+  quantity       Int
+  open_price     Int
+  close_price    Int?
+  open_datetime  DateTime  @default(now())
+  close_datetime DateTime?
+  open           Boolean   @default(true)
+
+  profile Profile @relation(fields: [profile_id], references: [id])
+}
+
+model Wire {
+  id         Int     @id @default(autoincrement())
+  profile_id Int
+  amount     Int
+  withdrawal Boolean
+
+  profile Profile @relation(fields: [profile_id], references: [id])
+}

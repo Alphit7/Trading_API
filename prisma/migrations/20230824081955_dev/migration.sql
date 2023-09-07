@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Trade" ALTER COLUMN "open_datetime" SET DEFAULT CURRENT_TIMESTAMP,
+ALTER COLUMN "close_datetime" DROP NOT NULL;
