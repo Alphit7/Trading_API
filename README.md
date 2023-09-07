@@ -40,7 +40,6 @@ An example request might be: "Buy 123 $TSLA shares". The backend must verify the
 | GET    | /api/openPNL             | Return total open PNL                                |
 | GET    | /api/currentBalance      | Return current account balance (excluding open PNL) |
 
-⚠️ Note that some routes require authentication.
 
 ## Some Nice Features to Explore
 
